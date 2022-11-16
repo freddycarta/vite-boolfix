@@ -4,7 +4,7 @@
     <header>
         <div>
             <input type="text" placeholder="Inserisci un titolo" v-model="query">
-            <input type="button" value="cerca" @click="fetchMovies">
+            <input type="button" value="Cerca" @click="fetchMovies">
         </div>
     </header>
         <ul>
@@ -19,7 +19,6 @@
 <script>
 import axios from 'axios';
 
-// import { store } from './store';
 
 export default {
     name: 'app',
@@ -27,18 +26,13 @@ export default {
         return {
             movies: [],
             api_key: 'e99307154c6dfb0b4750f6603256716d',
-            query: 'return',
+            query: 'Cerca',
             base_url:'https://api.themoviedb.org/3'
         }
     },
 
     methods: {
         fetchMovies () {
-            // axios.get(`${this.base_url}/search/movie?api_key=${this.api_key}&query=${this.query}`)
-            // .then ((res) => {
-            //     console.log(res)
-            //     this.movies = res.data.results
-            // })
             axios.get(`${this.base_url}/search/movie`, {
                 params: {
                     api_key: this.api_key,
@@ -47,6 +41,7 @@ export default {
             })
             .then (res => {
                 console.log(res.data)
+                this.movies = res.data.results
             })
         }
     },
@@ -55,7 +50,7 @@ export default {
 
 <style lang="scss">
 #app {
-    margin-top: 60px;
+    margin-top: 30px;
 }
 
 </style>

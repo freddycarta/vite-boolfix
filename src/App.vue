@@ -1,6 +1,12 @@
 <template>
     <h1>Boolfix</h1>
     <div id="app">
+    <header>
+        <div>
+            <input type="text" placeholder="Inserisci un titolo" v-model="query">
+            <input type="button" value="cerca" @click="fetchMovies">
+        </div>
+    </header>
         <ul>
             <li v-for="movie in movies" :key="movie.id">
                 {{ movie.original_title }}
@@ -28,21 +34,29 @@ export default {
 
     methods: {
         fetchMovies () {
-            axios.get(`${this.base_url}/search/movie?api_key=${this.api_key}&query=${this.query}`)
-            .then ((res) => {
-                console.log(res)
-                this.movies = res.data.results
+            // axios.get(`${this.base_url}/search/movie?api_key=${this.api_key}&query=${this.query}`)
+            // .then ((res) => {
+            //     console.log(res)
+            //     this.movies = res.data.results
+            // })
+            axios.get(`${this.base_url}/search/movie`, {
+                params: {
+                    api_key: this.api_key,
+                    query: this.query
+                }
+            })
+            .then (res => {
+                console.log(res.data)
             })
         }
     },
-    created () {
-        this.fetchMovies()
-
-    },
-};
+}
 </script>
 
 <style lang="scss">
+#app {
+    margin-top: 60px;
+}
 
 </style>
 
